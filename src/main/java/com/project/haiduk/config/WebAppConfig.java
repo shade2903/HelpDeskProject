@@ -1,4 +1,4 @@
-package com.project.haiduk.domain.config;
+package com.project.haiduk.config;
 
 import ma.glasnost.orika.MapperFacade;
 import ma.glasnost.orika.impl.DefaultMapperFactory;

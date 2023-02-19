@@ -1,4 +1,4 @@
-package com.project.haiduk.domain.config;
+package com.project.haiduk.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 

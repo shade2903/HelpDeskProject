@@ -10,7 +10,7 @@
     <packaging>war</packaging>
 
     <properties>
-<!--        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
@@ -18,8 +18,8 @@
         <spring.version>5.1.2.RELEASE</spring.version>
         <spring-security.version>5.1.1.RELEASE</spring-security.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
-        <hibernate.version>5.6.3.Final</hibernate.version>
-        <hibernate-common.vrsion>5.1.2.Final</hibernate-common.vrsion>
+        <hibernate.version>5.3.7.Final</hibernate.version>
+        <hibernate-common.vrsion>5.1.0.Final</hibernate-common.vrsion>
         <tomcat-dbcp.version>9.0.1</tomcat-dbcp.version>
         <h2database.version>1.4.200</h2database.version>
         <junit.version>4.12</junit.version>
@@ -51,6 +51,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
+
         </dependency>
 
         <!-- Servlet -->
@@ -72,7 +73,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <dependency>
@@ -91,8 +91,8 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
-            <version>${spring.version}</version>
-<!--            <version>5.1.1.RELEASE</version>-->
+<!--            <version>${spring.version}</version>-->
+            <version>5.1.1.RELEASE</version>
         </dependency>
 
         <!-- Spring JDBC -->
@@ -108,13 +108,12 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>${spring-security.version}</version>
 
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>${spring-security.version}</version>
+
         </dependency>
 
         <!--Gson-->
@@ -228,6 +227,19 @@
             <artifactId>tomcat-dbcp</artifactId>
             <version>${tomcat-dbcp.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+
 
 
     </dependencies>
