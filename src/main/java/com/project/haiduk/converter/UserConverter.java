@@ -1,8 +1,10 @@
 package com.project.haiduk.converter;
 
+import com.project.haiduk.domain.User;
 import com.project.haiduk.dto.UserDto;
-import org.h2.engine.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserConverter extends AbstractConverter<User, UserDto> {
     @Override
     Class<UserDto> getDomainClass() {
