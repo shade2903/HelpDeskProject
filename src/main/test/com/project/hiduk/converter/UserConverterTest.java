@@ -1,13 +1,10 @@
 package com.project.hiduk.converter;
 
-import com.project.haiduk.config.WebAppConfig;
-import com.project.haiduk.converter.AbstractConverter;
 import com.project.haiduk.converter.UserConverter;
 import com.project.haiduk.domain.User;
 import com.project.haiduk.domain.enums.Role;
 import com.project.haiduk.dto.UserDto;
 import ma.glasnost.orika.MapperFacade;
-import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,6 +49,27 @@ public class UserConverterTest {
         assertEquals(user.getEmail(), userDto.getEmail());
         assertEquals(user.getPassword(), userDto.getPassword());
         assertEquals(user.getRole(), userDto.getRole());
+
+    }
+    @Test
+    public void fromDto() {
+        UserDto userDto = new UserDto();
+        userDto.setId(1L);
+        userDto.setFirstName("Ilon");
+        userDto.setLastName("Mask");
+        userDto.setEmail("tesla@mail.com");
+        userDto.setPassword("qwerty");
+        userDto.setRole(Role.MANAGER);
+
+        Mockito.when(userConverter.fromDto(userDto)).thenReturn(mapperFacade.map(userDto, User.class));
+
+        User user = userConverter.fromDto(userDto);
+        assertEquals(userDto.getId(), user.getId());
+        assertEquals(userDto.getFirstName(), user.getFirstName());
+        assertEquals(userDto.getLastName(), user.getLastName());
+        assertEquals(userDto.getEmail(), user.getEmail());
+        assertEquals(userDto.getPassword(), user.getPassword());
+        assertEquals(userDto.getRole(), user.getRole());
 
     }
 }
