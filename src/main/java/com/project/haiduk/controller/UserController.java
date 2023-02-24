@@ -18,11 +18,10 @@ import java.util.List;
 @RequestMapping(value = "/users")
 public class UserController {
     private UserService userService;
-    private UserConverter userConverter;
 
-    public UserController(UserService userService, UserConverter userConverter) {
+
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userConverter = userConverter;
     }
 
     @GetMapping( produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

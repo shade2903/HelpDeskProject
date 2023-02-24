@@ -28,16 +28,21 @@ public class TicketRepositoryImpl implements TicketRepository {
 
     @Override
     public List<Ticket> getOwnerTickets(Long ownerId) {
-        return null;
+        Query query = sessionFactory.getCurrentSession().createQuery(GET_EMPLOYEE_TICKETS);
+        query.setParameter("ownerId", ownerId);
+        return query.list();
     }
 
     @Override
     public void saveTicket(Ticket ticket) {
+        sessionFactory.getCurrentSession().save(ticket);
 
     }
 
     @Override
     public Ticket getTicketById(Long id) {
-        return null;
+        Query query = sessionFactory.getCurrentSession().createQuery(GET_TICKET_BY_ID);
+        query.setParameter("id", id);
+        return (Ticket) query.uniqueResult();
     }
 }

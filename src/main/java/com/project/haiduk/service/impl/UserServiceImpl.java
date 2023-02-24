@@ -4,6 +4,7 @@ import com.project.haiduk.converter.UserConverter;
 import com.project.haiduk.domain.User;
 import com.project.haiduk.dto.UserDto;
 import com.project.haiduk.exception.DataNotFoundException;
+import com.project.haiduk.exception.UserNotFoundException;
 import com.project.haiduk.repository.UserRepository;
 import com.project.haiduk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,17 +25,17 @@ public class UserServiceImpl implements UserService {
     }
 
 
-
     @Transactional
     @Override
     public User getCurrentUser(String email) {
         User user = userRepository.getByEmail(email);
         if(user == null){
-            throw new DataNotFoundException(String.format("User's email:%s not found!"));
+            throw new UserNotFoundException(String.format("User's email:%s not found!"));
         }
         return user;
     }
 
+    @Transactional
     @Override
     public List<UserDto> getAll() {
         List<UserDto> users  = userConverter.toDtoList(userRepository.getAll());
