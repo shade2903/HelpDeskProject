@@ -1,4 +1,4 @@
-package com.project.haiduk.service.impl;
+package com.project.haiduk.service;
 
 import com.project.haiduk.domain.Ticket;
 import com.project.haiduk.domain.User;
