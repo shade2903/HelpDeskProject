@@ -7,14 +7,18 @@ import com.project.haiduk.exception.DataNotFoundException;
 import com.project.haiduk.exception.UserNotFoundException;
 import com.project.haiduk.repository.UserRepository;
 import com.project.haiduk.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
+
+
     private UserRepository userRepository;
     private UserConverter userConverter;
 
@@ -29,7 +33,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getCurrentUser(String email) {
         User user = userRepository.getByEmail(email);
-        if(user == null){
+        if (user == null) {
             throw new UserNotFoundException(String.format("User's email:%s not found!"));
         }
         return user;
@@ -38,7 +42,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public List<UserDto> getAll() {
-        List<UserDto> users  = userConverter.toDtoList(userRepository.getAll());
-        return users;
+        List<User> users = userRepository.getAll();
+        if (users.isEmpty()) {
+            throw new UserNotFoundException("List of users is not found!");
+        }
+        List<UserDto> usersDto = new ArrayList<>();
+        for (User user : users) {
+            usersDto.add(userConverter.toDto(user));
+        }
+        return usersDto;
     }
 }

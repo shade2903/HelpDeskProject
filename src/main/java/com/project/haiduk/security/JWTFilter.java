@@ -37,6 +37,7 @@ public class JWTFilter extends OncePerRequestFilter {
                     String username = jwtUtil.validateTokenAndRetrieveClaim(jwt);
                     UserDetails userDetails = myUserDetailService.loadUserByUsername(username);
 
+
                     UsernamePasswordAuthenticationToken authToken =
                             new UsernamePasswordAuthenticationToken(
                                     userDetails,
@@ -50,7 +51,6 @@ public class JWTFilter extends OncePerRequestFilter {
                 }
             }
         }
-
         filterChain.doFilter(request, response);
 
     }

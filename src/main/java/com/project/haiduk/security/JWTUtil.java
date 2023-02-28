@@ -6,6 +6,8 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.project.haiduk.service.impl.TicketServiceImpl;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +21,11 @@ public class JWTUtil {
 
     @Value("${jwt.sessionTime}")
     private int sessionTime;
+
+    private static final Logger log = Logger.getLogger(JWTUtil.class);
     public String generateToken(String username){
         Date expirationDate = Date.from(ZonedDateTime.now().plusMinutes(sessionTime).toInstant());
+        log.info(String.format("Create new JWT for user: %s ", username));
 
         return JWT.create()
                 .withSubject("User details")
@@ -37,6 +42,7 @@ public class JWTUtil {
                 .withIssuer("HelpDeskServer")
                 .build();
         DecodedJWT jwt = verifier.verify(token);
+        log.info(String.format("Validate JWT for user: %s ", jwt.getClaim("username").asString()));
         return jwt.getClaim("username").asString();
     }
 }

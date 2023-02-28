@@ -37,7 +37,6 @@ public class UserConverterTest {
         user.setFirstName("Ilon");
         user.setLastName("Mask");
         user.setEmail("tesla@mail.com");
-        user.setPassword("qwerty");
         user.setRole(Role.MANAGER);
 
         Mockito.when(userConverter.toDto(user)).thenReturn(mapperFacade.map(user, UserDto.class));
@@ -47,7 +46,6 @@ public class UserConverterTest {
         assertEquals(user.getFirstName(), userDto.getFirstName());
         assertEquals(user.getLastName(), userDto.getLastName());
         assertEquals(user.getEmail(), userDto.getEmail());
-        assertEquals(user.getPassword(), userDto.getPassword());
         assertEquals(user.getRole(), userDto.getRole());
 
     }
@@ -58,7 +56,6 @@ public class UserConverterTest {
         userDto.setFirstName("Ilon");
         userDto.setLastName("Mask");
         userDto.setEmail("tesla@mail.com");
-        userDto.setPassword("qwerty");
         userDto.setRole(Role.MANAGER);
 
         Mockito.when(userConverter.fromDto(userDto)).thenReturn(mapperFacade.map(userDto, User.class));
@@ -68,7 +65,6 @@ public class UserConverterTest {
         assertEquals(userDto.getFirstName(), user.getFirstName());
         assertEquals(userDto.getLastName(), user.getLastName());
         assertEquals(userDto.getEmail(), user.getEmail());
-        assertEquals(userDto.getPassword(), user.getPassword());
         assertEquals(userDto.getRole(), user.getRole());
 
     }

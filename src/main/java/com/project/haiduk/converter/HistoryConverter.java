@@ -2,7 +2,9 @@ package com.project.haiduk.converter;
 
 import com.project.haiduk.domain.History;
 import com.project.haiduk.dto.HistoryDto;
+import org.springframework.stereotype.Component;
 
+@Component
 public class HistoryConverter extends AbstractConverter<History, HistoryDto> {
     @Override
     Class<HistoryDto> getDomainClass() {

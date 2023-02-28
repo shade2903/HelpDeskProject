@@ -7,8 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,12 +30,19 @@ public class AuthenticationController {
 
     @PostMapping("/authenticate")
     @ResponseStatus(HttpStatus.OK)
-    public Map<String, String> performLogin(@RequestBody AuthenticationDto authenticationDto, Principal principal){
+    public Map<String, String> performLogin(@RequestBody  @Valid AuthenticationDto authenticationDto, BindingResult bindingResult){
+        Map<String, String> responseMap = new HashMap<>();
+        if (bindingResult.hasErrors()) {
+            responseMap.put("message", bindingResult.toString());
+            return responseMap;
+
+        }
 
         UsernamePasswordAuthenticationToken authenticationToken =
         new UsernamePasswordAuthenticationToken(authenticationDto.getUserName(),
                 authenticationDto.getPassword());
-        Map<String, String> responseMap = new HashMap<>();
+
+
         try{
             authenticationManager.authenticate(authenticationToken);
         }catch (BadCredentialsException e){
