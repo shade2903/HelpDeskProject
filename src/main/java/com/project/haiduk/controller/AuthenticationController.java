@@ -11,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,12 +19,12 @@ import java.util.Map;
 public class AuthenticationController {
     private final JWTUtil jwtUtil;
     private final AuthenticationManager authenticationManager;
-    private final UserService userService;
 
-    public AuthenticationController(JWTUtil jwtUtil, AuthenticationManager authenticationManager, UserService userService) {
+
+    public AuthenticationController(JWTUtil jwtUtil, AuthenticationManager authenticationManager) {
         this.jwtUtil = jwtUtil;
         this.authenticationManager = authenticationManager;
-        this.userService = userService;
+
     }
 
     @PostMapping("/authenticate")
@@ -35,7 +34,6 @@ public class AuthenticationController {
         if (bindingResult.hasErrors()) {
             responseMap.put("message", bindingResult.toString());
             return responseMap;
-
         }
 
         UsernamePasswordAuthenticationToken authenticationToken =
