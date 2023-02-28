@@ -34,7 +34,7 @@ public abstract class AbstractConverter<E, D> {
 
     public List<D> toDtoList(List<E> entities){
         List<D> listDto = new ArrayList<>();
-        if(entities == null || entities.isEmpty()){
+        if(entities == null ){
             throw new DataNotFoundException("Data not found!");
         }
         for(E entity : entities){
@@ -45,7 +45,7 @@ public abstract class AbstractConverter<E, D> {
 
     public List<E> toEntityList(List<D> listDto){
         List<E> entities = new ArrayList<>();
-        if(listDto == null || listDto.isEmpty()){
+        if(listDto == null){
             throw new DataNotFoundException("Data not found!");
         }
         for(D dto : listDto){
