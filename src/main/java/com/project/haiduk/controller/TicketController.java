@@ -44,7 +44,7 @@ public class TicketController {
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<TicketDto> getUserTickets(@PathVariable Long id, Principal principal) {
-        TicketDto ticket = ticketService.getTicketById(id);
+        TicketDto ticket = ticketService.getTicketById(id, principal);
         if (ticket == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

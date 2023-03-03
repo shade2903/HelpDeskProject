@@ -1,7 +1,6 @@
 package com.project.haiduk.dto;
 
 import com.project.haiduk.domain.Category;
-import com.project.haiduk.domain.User;
 import com.project.haiduk.domain.enums.State;
 import com.project.haiduk.domain.enums.Urgency;
 
@@ -9,20 +8,16 @@ import java.util.Date;
 
 public class TicketDto {
     private Long id;
-
-
     private String name;
-
-
     private String description;
     private Date createdOn;
     private Date desiredResolutionDate;
-    private User assignee;
-    private User owner;
+    private UserDto assignee;
+    private UserDto owner;
     State state;
     private Category category;
     Urgency urgency;
-    private User approver;
+    private UserDto approver;
 
     public Long getId() {
         return id;
@@ -64,19 +59,19 @@ public class TicketDto {
         this.desiredResolutionDate = desiredResolutionDate;
     }
 
-    public User getAssignee() {
+    public UserDto getAssignee() {
         return assignee;
     }
 
-    public void setAssignee(User assignee) {
+    public void setAssignee(UserDto assignee) {
         this.assignee = assignee;
     }
 
-    public User getOwner() {
+    public UserDto getOwner() {
         return owner;
     }
 
-    public void setOwner(User owner) {
+    public void setOwner(UserDto owner) {
         this.owner = owner;
     }
 
@@ -104,11 +99,11 @@ public class TicketDto {
         this.urgency = urgency;
     }
 
-    public User getApprover() {
+    public UserDto getApprover() {
         return approver;
     }
 
-    public void setApprover(User approver) {
+    public void setApprover(UserDto approver) {
         this.approver = approver;
     }
 }

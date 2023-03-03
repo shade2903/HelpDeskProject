@@ -16,8 +16,8 @@ import java.util.List;
 public class TicketRepositoryImpl implements TicketRepository {
     private static final String GET_ALL_TICKETS = "from Ticket";
     private static final String GET_EMPLOYEE_TICKETS = "from Ticket t where t.owner.id = :ownerId";
-    private static final String GET_NEW_EMPLOYEE_TICKETS = "from Ticket t where (t.owner.role = :role and t.state =: state" +
-            "and t.owner.id !=:id)";
+    private static final String GET_NEW_EMPLOYEE_TICKETS = "from Ticket t where (t.owner.role = :role and t.state = :state) or " +
+            "(t.owner.role = :roleManager and t.state = :state and t.owner.id != :id)";
     private static final String GET_APPROVED_TICKETS = "from Ticket t where t.state =: state";
     private static final String GET_APPROVER_TICKETS = "from Ticket t where t.approver.id = :approverId and " +
             "(t.state = : approved or  t.state = : declined or  t.state = : cancelled or  t.state = : inProgress or  t.state = : done)";
@@ -46,6 +46,7 @@ public class TicketRepositoryImpl implements TicketRepository {
         Query query = sessionFactory.getCurrentSession().createQuery(GET_NEW_EMPLOYEE_TICKETS);
         query.setParameter("role", Role.EMPLOYEE);
         query.setParameter("state", State.NEW);
+        query.setParameter("roleManager", Role.MANAGER);
         query.setParameter("id", userId);
         return query.list();
     }
@@ -65,7 +66,7 @@ public class TicketRepositoryImpl implements TicketRepository {
     @Override
     public List<Ticket> getApprovedTickets() {
         Query query = sessionFactory.getCurrentSession().createQuery(GET_APPROVED_TICKETS);
-        query.setParameter("approved", State.APPROVED);
+        query.setParameter("state", State.APPROVED);
         return query.list();
     }
 

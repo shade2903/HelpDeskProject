@@ -2,6 +2,7 @@ package com.project.haiduk.repository.impl;
 
 import com.project.haiduk.domain.User;
 import com.project.haiduk.repository.UserRepository;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;

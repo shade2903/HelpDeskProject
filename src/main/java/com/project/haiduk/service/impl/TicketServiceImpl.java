@@ -9,6 +9,7 @@ import com.project.haiduk.exception.DataNotFoundException;
 import com.project.haiduk.repository.TicketRepository;
 import com.project.haiduk.repository.UserRepository;
 import com.project.haiduk.service.TicketService;
+import com.project.haiduk.utill.TicketValidator;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,12 +26,15 @@ public class TicketServiceImpl implements TicketService {
     private final TicketConverter ticketConverter;
     private final TicketRepository ticketRepository;
     private final UserRepository userRepository;
+    private final TicketValidator validator;
 
     @Autowired
-    public TicketServiceImpl(TicketConverter ticketConverter, TicketRepository ticketRepository, UserRepository userRepository) {
+    public TicketServiceImpl(TicketConverter ticketConverter, TicketRepository ticketRepository,
+                             UserRepository userRepository, TicketValidator validator) {
         this.ticketConverter = ticketConverter;
         this.ticketRepository = ticketRepository;
         this.userRepository = userRepository;
+        this.validator = validator;
     }
 
     @Transactional
@@ -54,15 +58,19 @@ public class TicketServiceImpl implements TicketService {
 
     }
 
+    @Transactional
     @Override
-    public TicketDto getTicketById(Long id) {
+    public TicketDto getTicketById(Long id, Principal principal) {
+        User user = userRepository.getByEmail(principal.getName());
         Ticket ticket = ticketRepository.getTicketById(id);
+        validator.validateAccess(user, ticket);
         if(ticket == null){
             throw new DataNotFoundException(String.format("Ticket with id %d not found!", id));
         }
         return ticketConverter.toDto(ticket);
     }
 
+    @Transactional
     @Override
     public List<TicketDto> getAllUserTickets(Principal principal) {
         User user = userRepository.getByEmail(principal.getName());
